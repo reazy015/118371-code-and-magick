@@ -20,7 +20,7 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillText('Список результатов:', 120, 60);
   };
 
-  var getMaxElement = function (array) {
+  var getMaxArrayElement = function (array) {
     var max = -1;
     for (var i = 0; i < array.length; i++) {
       if (max < array[i]) {
@@ -30,26 +30,22 @@ window.renderStatistics = function (ctx, names, times) {
     return max;
   };
 
-  var maxElement = getMaxElement(times);
-  var STEP = HISTOGRAM_WIDTH / maxElement;
+  var maxElement = getMaxArrayElement(times);
+  var step = HISTOGRAM_WIDTH / maxElement;
 
-  var getRandom = function (min, max) {
+  var getRandomNumber = function (min, max) {
     return min + Math.random() * (max - min);
   };
 
-  var setFillStyle = function (name) {
-    if (name === 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    } else {
-      ctx.fillStyle = 'rgba(0, 0, 255,' + getRandom(0.1, 1) + ')';
-    }
+  var setHistogramFillStyle = function (name) {
+    name === 'Вы' ? ctx.fillStyle = 'rgba(255, 0, 0, 1)' : ctx.fillStyle = 'rgba(0, 0, 255,' + getRandomNumber(0.1, 1) + ')';
   };
 
   var drawRectangeOfHistogram = function (caption, value, number) {
     var x0 = INITIAL_X + INDENT * number;
     var y0 = INITIAL_Y;
     var x1 = BAR_WIDTH;
-    var y1 = -value * STEP;
+    var y1 = -value * step;
 
     ctx.fillRect(x0, y0, x1, y1);
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
@@ -59,7 +55,7 @@ window.renderStatistics = function (ctx, names, times) {
 
   var drawHistogram = function () {
     for (var i = 0; i < times[i]; i++) {
-      setFillStyle(names[i]);
+      setHistogramFillStyle(names[i]);
       drawRectangeOfHistogram(names[i], times[i], i);
     }
   };
