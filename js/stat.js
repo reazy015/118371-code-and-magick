@@ -7,6 +7,8 @@ window.renderStatistics = function (ctx, names, times) {
   var INDENT = BAR_WIDTH + 50;
   var INITIAL_X = 140;
   var INITIAL_Y = 250;
+  var maxElement;
+  var step;
 
   var drawCloud = function () {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
@@ -30,8 +32,8 @@ window.renderStatistics = function (ctx, names, times) {
     return max;
   };
 
-  var maxElement = getMaxArrayElement(times);
-  var step = HISTOGRAM_WIDTH / maxElement;
+  maxElement = getMaxArrayElement(times);
+  step = HISTOGRAM_WIDTH / maxElement;
 
   var getRandomNumber = function (min, max) {
     return min + Math.random() * (max - min);
