@@ -12,7 +12,9 @@ var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
 var generatedInitialData = [];
 var objectAmount = 4;
 
-setup.classList.remove('hidden');
+function showSetup(element) {
+  element.classList.remove('hidden');
+}
 
 function getRandomValue(max, min) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -56,4 +58,5 @@ function renderWizard(template, data) {
 }
 
 renderWizard(setupTemplate, createRandomDataArray(objectAmount));
-setupSimilar.classList.remove('hidden');
+showSetup(setup);
+showSetup(setupSimilar);
